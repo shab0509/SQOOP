@@ -1,2 +1,0 @@
-# SQOOP
-SQOOP
