@@ -120,7 +120,7 @@ sqoop job --create gopaljobnew -- import --connect jdbc:mysql://localhost/gopald
 --table emp -m 1 --fields-terminated-by '\t' --lines-terminated-by '\n' --target-dir /AppedJobNew --append;
 
 SQOOP JOB Options
-
+-----------------------------------------------------------------------------------------------------------------
 To see the available jobs
 sqoop job --list;
 
