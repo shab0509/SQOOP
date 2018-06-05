@@ -1,0 +1,29 @@
+SQOOP EXPORT
+------------------------------------------------------------------------------------------------------------------------------
+sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root --table exporttab --export-dir /IncrJob/part-m-*;
+sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root --table exporttab 
+--export-dir /IncrJob/part-r-00001 --fields-terminated-by '\t';
+sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root --table exporttab
+--export-dir /IncrJob/part-r-00001 --fields-terminated-by '\t' --outdir java_code
+
+SQOOP – INTEGRATION WITH – HIVE
+-------------------------------------------------------------------------------------------------------------------------------
+sqoop import-all-tables --connect jdbc:mysql://localhost/gopaldb --username root --password root --hive-import
+--hive-overwrite --create-hive-table --warehouse-dir=/user/hive/warehouse/sqoopImport.db 
+--compression-codec BZip2Codec --num-mappers 1 --outdir java_files3
+
+NOTE: Once above command is successfully completed, we can access all these tables in hive default database.
+
+sqoop import --connect "jdbc:mysql://localhost:3306/gopaldb" --username=root --password=root --table student
+--fields-terminated-by '|' --lines-terminated-by '\n' --hive-import --hive-overwrite --hive-table studetails --outdir java_codefiles2;
+
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb  --username=root --password=root --table student
+--fields-terminated-by '|' --lines-terminated-by '\n' --hive-import --create-hive-table --hive-table studetailsnew 
+--outdir java_codefiles;
+
+SQOOP – INTEGRATION WITH – HBASE
+--------------------------------------------------------------------------------------------------------------------------------
+sqoop import --connect jdbc:mysql://localhost/gopaldb --username root --password root --table emp 
+--hbase-create-table --hbase-table emp --column-family colfam1 --hbase-row-key empid --outdir java_files -m 1;
+NOTE: Go to hbase shell and in the tables list , we can see “emp” table and if we use “scan emp” 
+command-> we can see all the data of RDBMS emp table data over.
