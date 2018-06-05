@@ -10,9 +10,13 @@ Some of the key observation of sqoop export:
     > Number of fields
  3. If any one particular file ,if there is any bad records ,are those record will not get exported to RDBMS. 
   
-sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root --table exporttab --export-dir /IncrJob/part-m-*;
+sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root 
+--table exporttab --export-dir /IncrJob/part-m-*;
+
 sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root --table exporttab 
---export-dir /IncrJob/part-r-00001 --fields-terminated-by '\t';
+--export-dir /IncrJob/part-r-00001 --fields-terminated-by '\t';   
+
+
 sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root --table exporttab
 --export-dir /IncrJob/part-r-00001 --fields-terminated-by '\t' --outdir java_code
 
