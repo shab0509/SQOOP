@@ -1,0 +1,20 @@
+SQOOP EXPORT
+------------------------------------------------------------------------------------------------------------------------------
+Once the data got processed in hadoop we can also export the data to a relational DB using sqoop export option.
+Some of the key observation of sqoop export:
+1. Before the sqoop export takes place, Schema should be there at RDBMS side.
+2. The data which we are exporting from hadoop should be in sync with the target RDBMS table schema with respect to :
+    > Sequence of the fields
+    > Datatypes of the fields
+    > Costraint support (if any)
+    > Number of fields
+ 3. If any one particular file ,if there is any bad records ,are those record will not get exported to RDBMS. 
+  
+sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root --table exporttab --export-dir /IncrJob/part-m-*;
+sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root --table exporttab 
+--export-dir /IncrJob/part-r-00001 --fields-terminated-by '\t';
+sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root --table exporttab
+--export-dir /IncrJob/part-r-00001 --fields-terminated-by '\t' --outdir java_code
+
+
+
