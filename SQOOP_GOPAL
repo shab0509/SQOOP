@@ -129,14 +129,24 @@ sqoop job --show gopaljob;
 
 To Execute a Job
 sqoop job --exec gopaljob;
-
+ 
 To Delete a Job
 Sqoop job --delete gopaljob
 
 SQOOP INCREMENTAL LOADING 
 ------------------------------------------------------------------------------------------------------------------------------
-sqoop job --create incrjob -- import --connect jdbc:mysql://localhost/gopaldb --username root --password root --table emp --incremental append --check-column empid --last-value 0 --target-dir /IncrJob -m 1;
+--incremental (mode) : Specifies how Sqoop determines whcih row are new. Legal values for mode include append and lastmodified
+--check-column(col) : Specifies the column to be examined when determining which rows to import.
+--last-value(value)  : Specifies the maximum value of the check column from the previous import.
+
+sqoop job --create incrjob -- import --connect jdbc:mysql://localhost/gopaldb --username root --password root --table emp 
+--incremental append --check-column empid --last-value 0 --target-dir /IncrJob -m 1;
+
+sqoop job --create incrjob -- import --connect jdbc:mysql://localhost/gopaldb --username root --password root --table emp 
+--incremental lastmodified --check-column empid --last-value 0 --target-dir /IncrJob -m 1;
+
 To Execute the above Job: sqoop job --exec incrjob;
+
 
 SQOOP EXPORT
 ------------------------------------------------------------------------------------------------------------------------------
