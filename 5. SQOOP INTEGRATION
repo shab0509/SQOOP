@@ -1,4 +1,4 @@
-SQOOP – INTEGRATION WITH – HIVE
+SQOOP – INTEGRATION WITH HIVE
 -------------------------------------------------------------------------------------------------------------------------------
 
 sqoop import-all-tables --connect jdbc:mysql://localhost/gopaldb --username root --password root --hive-import
@@ -14,7 +14,7 @@ sqoop import --connect jdbc:mysql://localhost:3306/gopaldb  --username=root --pa
 --fields-terminated-by '|' --lines-terminated-by '\n' --hive-import --create-hive-table --hive-table studetailsnew 
 --outdir java_codefiles;
 
-SQOOP – INTEGRATION WITH – HBASE
+SQOOP – INTEGRATION WITH HBASE
 --------------------------------------------------------------------------------------------------------------------------------
 sqoop import --connect jdbc:mysql://localhost/gopaldb --username root --password root --table emp 
 --hbase-create-table --hbase-table emp --column-family colfam1 --hbase-row-key empid --outdir java_files -m 1;
