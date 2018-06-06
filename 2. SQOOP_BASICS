@@ -51,7 +51,7 @@ TO CHECK MYSQL “DATABASES” , “TABLES”  & “TABLES DATA”
 sqoop list-databases --connect jdbc:mysql://localhost:3306/ --username root --password root;
 sqoop list-tables --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root;
 
-sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp limit 3";
+sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp limit 3"
 sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp where esal > 25000";
 sqoop eval --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --query "show tables";
 
@@ -83,14 +83,14 @@ sqoop import --options-file /home/gopalkrishna/Desktop/SQOOP/connectionfile.txt 
 --TO IMPORT ALL TABLES DATA FROM RDBMS TO DEFAULT PATH OF HDFS
 sqoop import-all-tables --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1;
 
-TO IMPORT ALL TABLES DATA FROM RDBMS TO HIVE WAREHOUSE PATH
+--TO IMPORT ALL TABLES DATA FROM RDBMS TO HIVE WAREHOUSE PATH
 sqoop import-all-tables --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 
 --warehouse-dir=/user/hive/warehouse/sqoopdata.db;
 
-TO IMPORT SELECTED RANGE OF TABLES DATA [--exclude-tables]
+--TO IMPORT SELECTED TABLES OF DATABASE [--exclude-tables]
 sqoop import-all-tables --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 --exclude-tables depttab,emp,student;
 
-TO IMPORT RANGE OF DATA FROM A PARTICULAR TABLE [--boundary-query]
+--TO IMPORT RANGE OF DATA FROM A PARTICULAR TABLE [--boundary-query]
 sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root  --table emp 
 --target-dir=/ImportBoundaryDirNew -m 1 --boundary-query "select 100,105 from emp";
 
