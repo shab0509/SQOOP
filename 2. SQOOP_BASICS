@@ -1,21 +1,22 @@
 MYSQL DATABASE SIDE
+------------------------------------------------------------------------------------------------------
 
 HOW TO CONNECT TO MYSQL DB
 mysql -u root –p
 NOTE: Here password is “root”
 
-TO SEE THE AVAILABLE DATABASES
-mysql> show databases;
 
-TO SEE AVAILABLE TABLES
-mysql> show tables;
+mysql> show databases; [TO SEE THE AVAILABLE DATABASES]
+mysql> show tables; [TO SEE AVAILABLE TABLES]
 
-TO CREATE A TABLE IN MYSQL
+--TO CREATE A TABLE IN MYSQL
+
 mysql> use gopaldb;
 mysql> create table emp(empid int primary key,ename varchar(50),esal int);
 Query OK, 0 rows affected (0.00 sec)
 
-TO INSERT THE DATA INTO TABLE
+--TO INSERT THE DATA INTO TABLE
+
 mysql> insert into emp values(100,'EMP1',12000);
 Query OK, 1 row affected (0.00 sec)
 
@@ -23,7 +24,8 @@ NOTE: insert multiple records in the same way like above
 
 mysql> create table empdetails(id int,name varchar(50),sal int,address varchar(50));
 Query OK, 0 rows affected (0.00 sec)
-OTHER TABLES CREATION & DATA INSERTION
+
+--OTHER TABLES CREATION & DATA INSERTION
 
 mysql> insert into empdetails VALUES (100,'Raju',12000,'Hyd'),(101,'Ravi',14000,'Pune'),(102,'Ramya',15000,'Chn'),
 (103,'Ranga',16000,'Ban');
@@ -39,23 +41,46 @@ Query OK, 0 rows affected (0.00 sec)
 
 mysql> insert into student VALUES (1,'ABHIRAM',21,80),(2,'BHAVYA',23,90),(3,'CHAITU',28,67),(4,'ESWAR',22,91);
 
+
+----------------------------------------------------------------------------------------------------------------------------------
 SQOOP COMMANDS
 ----------------------------------------------------------------------------------------------------------------------------------
+
 TO CHECK MYSQL “DATABASES” , “TABLES”  & “TABLES DATA” 
+
 sqoop list-databases --connect jdbc:mysql://localhost:3306/ --username root --password root;
 sqoop list-tables --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root;
+
 sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp limit 3";
-sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from 
-emp where esal > 25000";
+sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp where esal > 25000";
 sqoop eval --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --query "show tables";
 
-DATA INGETION ON HDFS
-TO IMPORT THE DATA FROM “RDBMS” to “HDFS”
+--Available commands in sqoop:
+  codegen            Generate code to interact with database records
+  create-hive-table  Import a table definition into Hive
+  eval               Evaluate a SQL statement and display the results
+  export             Export an HDFS directory to a database table
+  help               List available commands
+  import             Import a table from a database to HDFS
+  import-all-tables  Import tables from a database to HDFS
+  import-mainframe   Import datasets from a mainframe server to HDFS
+  job                Work with saved jobs
+  list-databases     List available databases on a server
+  list-tables        List available tables in a database
+  merge              Merge results of incremental imports
+  metastore          Run a standalone Sqoop metastore
+  version            Display version information
+
+-------DATA INGETION ON HDFS------------------------------------------------------------------------------
+
+--TO IMPORT THE DATA FROM “RDBMS” to “HDFS”
+
 sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root –password root --table emp;
 sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root  --table emp --target-dir=/Import -m 1;
 sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root  --table emp --target-dir=/Import1 -m 2;
+sqoop import --options-file /home/gopalkrishna/Desktop/SQOOP/connectionfile.txt --table emp -m1 --target-dir=/sqoop1/empnew;
 
-TO IMPORT ALL TABLES DATA FROM RDBMS TO DEFAULT PATH OF HDFS
+--TO IMPORT ALL TABLES DATA FROM RDBMS TO DEFAULT PATH OF HDFS
 sqoop import-all-tables --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1;
 
 TO IMPORT ALL TABLES DATA FROM RDBMS TO HIVE WAREHOUSE PATH
