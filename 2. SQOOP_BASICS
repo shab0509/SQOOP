@@ -81,20 +81,25 @@ sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --pas
 sqoop import --options-file /home/gopalkrishna/Desktop/SQOOP/connectionfile.txt --table emp -m1 --target-dir=/sqoop1/empnew;
 
 --TO IMPORT ALL TABLES DATA FROM RDBMS TO DEFAULT PATH OF HDFS
+
 sqoop import-all-tables --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1;
 
 --TO IMPORT ALL TABLES DATA FROM RDBMS TO HIVE WAREHOUSE PATH
+
 sqoop import-all-tables --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 
 --warehouse-dir=/user/hive/warehouse/sqoopdata.db;
 
 --TO IMPORT SELECTED TABLES OF DATABASE [--exclude-tables]
+
 sqoop import-all-tables --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 --exclude-tables depttab,emp,student;
 
 --TO IMPORT RANGE OF DATA FROM A PARTICULAR TABLE [--boundary-query]
+
 sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root  --table emp 
 --target-dir=/ImportBoundaryDirNew -m 1 --boundary-query "select 100,105 from emp";
 
-IMPORTING THE DATA FROM RDBMS TO HDFS IN DIFFRENT FORMS
+--IMPORTING THE DATA FROM RDBMS TO HDFS IN DIFFRENT FORMS
+
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 --table emp --as-textfile 
 --target-dir=/IMPORTTEXTFILE;
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 --table emp --as-sequencefile 
@@ -102,29 +107,35 @@ sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt 
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 --table emp --as-avrodatafile 
 --target-dir=/IMPORT_AVROFILE;
 
-IMPORT THE DATA WITH SELECTED COLUMNS DATA ONLY
+--IMPORT THE DATA WITH SELECTED COLUMNS DATA ONLY
+
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 --table emp --columns 'ename,esal'
 --target-dir=/ImportCols;
 
-IMPORT THE DATA IN A SPECIFIED FORMAT [other than Default - CSV]
+--IMPORT THE DATA IN A SPECIFIED FORMAT [other than Default - CSV]
+
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
 --target-dir=/ImportFormat --fields-terminated-by '\t' -m 1;
 
-IMPORT THE DATA WITH SELECTED CRITERIA [--where]
+--IMPORT THE DATA WITH SELECTED CRITERIA [--where]
+
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
 --target-dir=/ImportCond --fields-terminated-by '|' --where 'esal > 22000' -m 1;
 
-IMPORT THE DATA WITH “SPLIT-BY” OPTION
+--IMPORT THE DATA WITH “SPLIT-BY” OPTION
+
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
 --target-dir=/ImportSplit --fields-terminated-by '|' --where 'esal > 22000' --split-by empid -m 1;
 
-IMPORTING THE DATA WITH “COMPRESSION TECHNIQUES”
+--IMPORTING THE DATA WITH “COMPRESSION TECHNIQUES”
+
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
 --compression-codec GzipCodec -m 1 --target-dir=/ImportGZIP;
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
 --compression-codec BZip2Codec -m 1 --target-dir=/ImportBZIP
 
-IMPORT WITH “–query” OPTION [\$CONDITIONS]
+--IMPORT WITH “–query” OPTION [\$CONDITIONS]
+
 sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root 
 --query "select * from emp WHERE \$CONDITIONS" --target-dir=/ImportQuery1 -m 1;
 
