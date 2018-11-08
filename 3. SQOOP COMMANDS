@@ -8,6 +8,10 @@ sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --passw
 
 sqoop eval --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --query "show tables";
 
+realtime scenario:
+$ sqoop import --connect jdbc:mysql://database.example.com/employees   
+[will connect to a MySQL database named employees on the host database.example.com]
+
 -----------Available commands in sqoop     <sqoop-help>:
 
   codegen            Generate code to interact with database records
