@@ -5,6 +5,7 @@ sqoop list-tables --connect jdbc:mysql://localhost:3306/gopaldb --username root 
 
 sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp limit 3"
 sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp where esal > 25000";
+
 sqoop eval --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --query "show tables";
 
 -----------Available commands in sqoop     <sqoop-help>:
@@ -30,7 +31,7 @@ sqoop eval --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --
 
 sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root –password root --table emp;
 sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root  --table emp --target-dir=/Import -m 1;
-sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root  --table emp --target-dir=/Import1 -m 2;
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --table emp --target-dir=/Import1 -m 2;
 sqoop import --options-file /home/gopalkrishna/Desktop/SQOOP/connectionfile.txt --table emp -m 1 --target-dir=/sqoop1/empnew;
 
 -----------TO IMPORT ALL TABLES DATA FROM RDBMS TO DEFAULT PATH OF HDFS
