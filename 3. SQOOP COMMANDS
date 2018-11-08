@@ -1,0 +1,103 @@
+ -----------TO CHECK MYSQL “DATABASES” , “TABLES”  & “TABLES DATA” 
+
+sqoop list-databases --connect jdbc:mysql://localhost:3306/ --username root --password root;
+sqoop list-tables --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root;
+
+sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp limit 3"
+sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp where esal > 25000";
+sqoop eval --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --query "show tables";
+
+-----------Available commands in sqoop:
+
+  codegen            Generate code to interact with database records
+  create-hive-table  Import a table definition into Hive
+  eval               Evaluate a SQL statement and display the results
+  export             Export an HDFS directory to a database table
+  help               List available commands
+  import             Import a table from a database to HDFS
+  import-all-tables  Import tables from a database to HDFS
+  import-mainframe   Import datasets from a mainframe server to HDFS
+  job                Work with saved jobs
+  list-databases     List available databases on a server
+  list-tables        List available tables in a database
+  merge              Merge results of incremental imports
+  metastore          Run a standalone Sqoop metastore
+  version            Display version information
+
+-------DATA INGETION ON HDFS------------------------------------------------------------------------------
+
+-----------TO IMPORT THE DATA FROM “RDBMS” to “HDFS”
+
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root –password root --table emp;
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root  --table emp --target-dir=/Import -m 1;
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root  --table emp --target-dir=/Import1 -m 2;
+sqoop import --options-file /home/gopalkrishna/Desktop/SQOOP/connectionfile.txt --table emp -m 1 --target-dir=/sqoop1/empnew;
+
+-----------TO IMPORT ALL TABLES DATA FROM RDBMS TO DEFAULT PATH OF HDFS
+
+sqoop import-all-tables --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1;
+
+-----------TO IMPORT ALL TABLES DATA FROM RDBMS TO HIVE WAREHOUSE PATH
+
+sqoop import-all-tables --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 
+--warehouse-dir=/user/hive/warehouse/sqoopdata.db;
+
+-----------TO IMPORT SELECTED TABLES OF DATABASE [--exclude-tables]
+
+sqoop import-all-tables --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 --exclude-tables depttab,emp,student;
+
+-----------TO IMPORT RANGE OF DATA FROM A PARTICULAR TABLE [--boundary-query]
+
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root  --table emp 
+--target-dir=/ImportBoundaryDirNew -m 1 --boundary-query "select 100,105 from emp";
+
+-----------IMPORTING THE DATA FROM RDBMS TO HDFS IN DIFFRENT FORMS
+
+sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 --table emp --as-textfile 
+--target-dir=/IMPORTTEXTFILE;
+sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 --table emp --as-sequencefile 
+--target-dir=/IMPORT_SEQFILE;
+sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 --table emp --as-avrodatafile 
+--target-dir=/IMPORT_AVROFILE;
+
+-----------IMPORT THE DATA WITH SELECTED COLUMNS DATA ONLY
+
+sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt -m 1 --table emp --columns 'ename,esal'
+--target-dir=/ImportCols;
+
+-----------IMPORT THE DATA IN A SPECIFIED FORMAT [other than Default - CSV]
+
+sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
+--target-dir=/ImportFormat --fields-terminated-by '\t' -m 1;
+
+-----------IMPORT THE DATA WITH SELECTED CRITERIA [--where]
+
+sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
+--target-dir=/ImportCond --fields-terminated-by '|' --where 'esal > 22000' -m 1;
+
+-----------IMPORT THE DATA WITH “SPLIT-BY” OPTION
+
+sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
+--target-dir=/ImportSplit --fields-terminated-by '|' --where 'esal > 22000' --split-by empid -m 1;
+
+-----------IMPORTING THE DATA WITH “COMPRESSION TECHNIQUES”
+
+sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
+--compression-codec GzipCodec -m 1 --target-dir=/ImportGZIP;
+sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
+--compression-codec BZip2Codec -m 1 --target-dir=/ImportBZIP
+
+--IMPORT WITH “–query” OPTION [\$CONDITIONS]
+
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root 
+--query "select * from emp WHERE \$CONDITIONS" --target-dir=/ImportQuery1 -m 1;
+
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root 
+--query "select e.empid,ename,esal,deptid,dname,dloc from emp e JOIN dept d ON (e.empid = d.empid) AND \$CONDITIONS" -m 1 
+--target-dir=/INNERJOIN26;
+
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query 
+"select e.empid,ename,esal,deptid,dname,dloc from emp e LEFT OUTER JOIN dept d ON (e.empid = d.empid) AND \$CONDITIONS" -m 1 --target-dir=/LEFTJOIN26;
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query 
+"select e.empid,ename,esal,deptid,dname,dloc from emp e RIGHT OUTER JOIN dept d ON (e.empid = d.empid) AND \$CONDITIONS" -m 1 --target-dir=/RIGHTJOIN26;
+
