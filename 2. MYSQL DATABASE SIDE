@@ -1,0 +1,26 @@
+MYSQL DATABASE SIDE
+------------------------------------------------------------------------------------------------------
+
+HOW TO CONNECT TO MYSQL DB : mysql -u root –p
+NOTE: Here password is “root”
+
+mysql> show databases;      [TO SEE THE AVAILABLE DATABASES]
+mysql> show tables;         [TO SEE AVAILABLE TABLES]
+mysql> describe <tablename>;[TO SEE AVAILABLE TABLE DETAILS]
+
+-----------TO CREATE A TABLE IN MYSQL
+
+mysql> use gopaldb;
+mysql> create table emp(empid int primary key,ename varchar(50),esal int);
+mysql> insert into emp values(100,'EMP1',12000);
+ 
+mysql> create table empdetails(id int,name varchar(50),sal int,address varchar(50));
+mysql> insert into empdetails VALUES (100,'Raju',12000,'Hyd'),(101,'Ravi',14000,'Pune'),(102,'Ramya',15000,'Chn'),
+(103,'Ranga',16000,'Ban');
+
+mysql> create table depttab(deptid int primary key,dname varchar(50),dloc varchar(60));
+ mysql> insert into depttab VALUES (100,'HRD','HYD'),(101,'TRANSPORT','BAN'),(102,'R&D','CHN'),(103,'ADMIN','HYD'),
+(104,'SALES','PUNE'),(105,'FINANCE','MUM'),(106,'MARKETING','HYD');
+
+mysql> create table student(sid int primary key,name varchar(50),age int,marks int);
+mysql> insert into student VALUES (1,'ABHIRAM',21,80),(2,'BHAVYA',23,90),(3,'CHAITU',28,67),(4,'ESWAR',22,91);
