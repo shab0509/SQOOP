@@ -1,6 +1,6 @@
 SQOOP JOB
 ----------------------------------------------------------------------------------------------------------------------------
-sqoop job --create gopaljob --import --connect jdbc:mysql://localhost/gopaldb  --username root --password root 
+sqoop job --create gopaljob -- import --connect jdbc:mysql://localhost/gopaldb  --username root --password root 
 --table emp -m 1 --target-dir /AppendJob --append;
 
 sqoop job --create gopaljobnew -- import --connect jdbc:mysql://localhost/gopaldb  --username root --password root 
