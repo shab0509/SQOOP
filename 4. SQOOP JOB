@@ -1,10 +1,15 @@
 SQOOP JOB
 ----------------------------------------------------------------------------------------------------------------------------
+
 sqoop job --create gopaljob -- import --connect jdbc:mysql://localhost/gopaldb  --username root --password root 
 --table emp -m 1 --target-dir /AppendJob --append;
 
 sqoop job --create gopaljobnew -- import --connect jdbc:mysql://localhost/gopaldb  --username root --password root 
 --table emp -m 1 --fields-terminated-by '\t' --lines-terminated-by '\n' --target-dir /AppedJobNew --append;
+
+sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root -e "insert into emp values (112,'moni',50000)";
+[to update sql database table through sqoop command]
+
 
 SQOOP JOB Options
 -----------------------------------------------------------------------------------------------------------------
@@ -19,9 +24,3 @@ sqoop job --exec gopaljob;
  
 To Delete a Job
 Sqoop job --delete gopaljob
-
-
-
-
-
-
