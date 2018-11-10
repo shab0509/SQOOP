@@ -108,6 +108,11 @@ sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt 
 
 -----------IMPORT THE DATA WITH “SPLIT-BY” OPTION
 
+If the actual values for the primary key are not uniformly distributed across its range, then this can result in unbalanced tasks. 
+You should explicitly choose a different column with the --split-by argument. For example, --split-by employee_id. 
+Sqoop cannot currently split on multi-column indices. 
+If your table has no index column, or has a multi-column key, then you must also manually choose a splitting column.
+
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
 --target-dir /ImportSplit --fields-terminated-by '|' --where 'esal > 22000' --split-by empid -m 1;
 
