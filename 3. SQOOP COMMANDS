@@ -113,15 +113,25 @@ sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt 
 
 -----------IMPORTING THE DATA WITH “COMPRESSION TECHNIQUES”
 
+By default, data is not compressed. You can compress your data by using the deflate (gzip) algorithm with the -z or --compress argument,
+or specify any Hadoop compression codec using the --compression-codec argument.
+This applies to SequenceFile, text, and Avro files.
+
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
 --compression-codec GzipCodec -m 1 --target-dir /ImportGZIP;
+
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
 --compression-codec BZip2Codec -m 1 --target-dir /ImportBZIP
 
---IMPORT WITH “–query” OPTION [\$CONDITIONS]
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --table student -z
+
+-----------IMPORT WITH “query” OPTION [\$CONDITIONS]
 
 sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root 
---query "select * from emp WHERE \$CONDITIONS" --target-dir /ImportQuery1 -m 1;
+--query "select * from emp WHERE \$CONDITIONS and <conditions>" --target-dir /ImportQuery1 -m 1;
+
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root -password root --query "select * from depttab
+where \$CONDITIONS and deptid>103" -m 1 --target-dir /user/gopalkrishna/depttab
 
 sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root 
 --query "select e.empid,ename,esal,deptid,dname,dloc from emp e JOIN dept d ON (e.empid = d.empid) AND \$CONDITIONS" -m 1 
