@@ -6,16 +6,13 @@ Moreover, to import and export the data, Sqoop uses MapReduce. Also, offers para
 Basically, Sqoop attains the collection of related tools. 
 We can use Sqoop, by just specifying the tool we want to use but with the arguments that control the tool.
 
-INSTALL: sudo apt-get instal mysql-server mysql-client
+INSTALL MYSQL: sudo apt-get instal mysql-server mysql-client
 
 Basically sqoop is the component of hadoop built on top of HDFS & exclusively meant for communicating with RDBMS.
   IMPORT : Move data RDBMS to HDFS
   EXPORT : Move data HDFS to RDBMS
 
-However Sqoop is a data ingestion tool , however it is not meant for processing of the data with some business logic like MR,pig ....
-
-Note: SQOOP is only meant for import of data of RDBMS table but not the logic (triggers, cursor or stored procedure) to be applied 
-on table data. 
+However Sqoop is a data ingestion tool, however it is not meant for processing of the data with some business logic like MR,pig ....
 
 Some key features of hadoop:
 
@@ -26,3 +23,6 @@ Some key features of hadoop:
 * If we are communicating with RDBMS from hadoop using sqoop ,the RDBMS  specific connector jar should be a part of 
   $SQOOP_HOME/lib
   mysql-connector-java-5.1.38.jar
+
+Note: SQOOP is only meant for import of data of RDBMS table but not the logic (triggers, cursor or stored procedure) to be applied 
+on table data. 
