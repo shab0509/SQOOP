@@ -1,12 +1,20 @@
- -----------TO CHECK MYSQL “DATABASES” , “TABLES”  & “TABLES DATA” 
+ -----------TO CHECK MYSQL “DATABASES”, “TABLES” & “TABLES DATA” 
 
 sqoop list-databases --connect jdbc:mysql://localhost:3306/ --username root --password root;
-sqoop list-tables --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root;
+sqoop list-tables    --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root;
 
-sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp limit 3"
-sqoop eval --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp where esal > 25000";
+sqoop eval           --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp limit 3"
+sqoop eval           --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --query "select * from emp where esal > 25000";
 
 sqoop eval --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --query "show tables";
+<make a text file "ConnectionDetails.txt" and save below details:
+"--connect 
+jdbc:mysql://localhost:3306/gopaldb
+--username
+root
+--password 
+root" 
+>
 
 realtime scenario:
 $ sqoop import --connect jdbc:mysql://database.example.com/employees   
@@ -30,7 +38,7 @@ $ sqoop import --connect jdbc:mysql://database.example.com/employees
   version            Display version information
 
 -------------------Import control arguments
-Argument 	                    Description
+  Argument 	                  Description
 -------------------------------------------------------------
 --append 	                    Append data to an existing dataset in HDFS
 --as-avrodatafile 	           Imports data to Avro Data Files
