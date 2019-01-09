@@ -137,6 +137,9 @@ sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt 
 sqoop import --options-file /home/gopalkrishna/PRAC/SQOOP/ConnectionDetails.txt --table emp 
 --compression-codec BZip2Codec -m 1 --target-dir /ImportBZIP
 
+sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --table emp 
+--target-dir=/sqoop/emp4 --compression-codec snappy --as-avrodatafile
+
 sqoop import --connect jdbc:mysql://localhost:3306/gopaldb --username root --password root --table student -z
 
 -----------IMPORT WITH “query” OPTION [\$CONDITIONS]
