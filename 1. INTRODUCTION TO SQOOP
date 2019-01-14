@@ -19,10 +19,15 @@ Some key features of hadoop:
 * Either sqoop import/export  will happen with respect to HDFS only.
 * Sqoop will communicate with HDFS only.
 * if we are communicating with some RDBMS from hadoop using sqoop, 
+  (also works  with relational databases like TeraData,Netteza,PostGres)
   the target RDBMS must be a part of compatable RDBMS(will support JDBC/ODBC).
 * If we are communicating with RDBMS from hadoop using sqoop ,the RDBMS  specific connector jar should be a part of 
   $SQOOP_HOME/lib
   mysql-connector-java-5.1.38.jar
+* Sqoop uses MapReduces to import & export the data, which provides parallel operation as well as fault tolerance.
+* Sqoop command submitted by the end user is parsed by sqoop & launched as hadoop Map only job to import & export data because reduce
+  is required only when aggregations are needed & sqoop does not provide any aggregations.
+* Sqoop also porvide the ability to import from SQL databases straight into your Hive data warehouse.
 
 Note: SQOOP is only meant for import of data of RDBMS table but not the logic (triggers, cursor or stored procedure) to be applied 
-on table data. 
+on table data.
