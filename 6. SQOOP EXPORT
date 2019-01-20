@@ -1,6 +1,11 @@
 SQOOP EXPORT
 ------------------------------------------------------------------------------------------------------------------------------
+A tool which exports a set of files from HDFS back to RDBMS. That tool is what we call a Sqooop Export Tool. 
+There is one condition for it, that in the database, target the table must already exist. 
+However, the input files are read and parsed according to the user-specified delimiters into a set of records.
+
 Once the data got processed in hadoop we can also export the data to a relational DB using sqoop export option.
+
 Some of the key observation of sqoop export:
 1. Before the sqoop export takes place, Schema should be there at RDBMS side.
 2. The data which we are exporting from hadoop should be in sync with the target RDBMS table schema with respect to :
@@ -11,14 +16,12 @@ Some of the key observation of sqoop export:
  3. If any one particular file ,if there is any bad records ,are those record will not get exported to RDBMS. 
   
 sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root 
---table exporttab --export-dir /IncrJob/part-m-*;
+--table exporttab  --export-dir /IncrJob/part-m-*;
 
-sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root --table exporttab 
---export-dir /IncrJob/part-r-00001 --fields-terminated-by '\t';   
+sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root 
+--table exporttab --export-dir /IncrJob/part-r-00001 --fields-terminated-by '\t';   
 
-
-sqoop export --connect jdbc:mysql://localhost/gopaldb --username root --password root --table exporttab
---export-dir /IncrJob/part-r-00001 --fields-terminated-by '\t' --outdir java_code
+--outdir java_code[ Find Something ]
 
 
 
